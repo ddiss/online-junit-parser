@@ -213,13 +213,18 @@
   }
 
   function processFile(evt) {
+    const texml = document.querySelector('textarea.xml');
     if (evt.target.files.length < 1) {
       console.log('invalid files length: ' + evt.target.files.length);
       return;
     }
+    texml.value = '';
+    const prevplace = texml.placeholder;
+    texml.placeholder = 'Loading ' + evt.target.files[0].name;
     const fr = new FileReader();
     fr.onload = (ev) => {
-      document.querySelector('textarea.xml').value = ev.target.result;
+      texml.value = ev.target.result;
+      texml.placeholder = prevplace;
       refresh();
     };
     fr.readAsText(evt.target.files[0]);
