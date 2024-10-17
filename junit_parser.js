@@ -305,6 +305,16 @@
         var rfill;
         var title = null;
 
+        if ((!document.getElementById('settingPlotFailed').checked
+             && (tc.failure || tc.error))
+         || (!document.getElementById('settingPlotSkipped').checked
+             && tc.skipped)
+         || (!document.getElementById('settingPlotPassed').checked
+             && !tc.failure && !tc.error && !tc.skipped)) {
+          //console.log("skipping due to filter:", tc);
+          continue;
+        }
+
         if (tc.failure) {
           title = tc.failure.message;
           rfill = "rgba(212, 22, 16)"; // red

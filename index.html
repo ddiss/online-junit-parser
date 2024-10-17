@@ -15,6 +15,7 @@
     textarea { font-size: 12px; }
     pre { font-size: .75em; }
     em { font-size: .75em; }
+    label { display: inline; }
     .testsuite-name, .testcase-name { max-width: 400px;overflow: hidden;display: inline-block;white-space: nowrap;text-overflow: ellipsis;vertical-align: middle; }
     .testcase-name { max-width:  600px;}
     .copy-link { float:right; margin-top: -2em;}
@@ -60,8 +61,14 @@
 
   <div id="result"></div>
   <div id="settings">
-    <input name="settingErrorIsFailure" id="settingErrorIsFailure" class="setting" type="checkbox" checked>
-    <label style="display: inline" for="settingErrorIsFailure">Treat errors as if they were failures.</label>
+    <input id="settingPlotPassed" class="setting" type="checkbox" checked>
+    <label for="settingPlotPassed">Plot passed tests.</label>
+    <input id="settingPlotSkipped" class="setting" type="checkbox" checked>
+    <label for="settingPlotSkipped">Plot skipped tests.</label>
+    <input id="settingPlotFailed" class="setting" type="checkbox" checked>
+    <label for="settingPlotFailed">Plot failed tests.</label>
+    <input id="settingErrorIsFailure" class="setting" type="checkbox" checked>
+    <label for="settingErrorIsFailure">Treat errors as if they were failures.</label>
   </div>
   <script src="junit_parser.js"></script>
 </body>
