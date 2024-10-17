@@ -422,7 +422,6 @@
     document.querySelector('#settingErrorIsFailure').addEventListener('change', refresh);
     document.querySelector('#file').addEventListener('change', processFile);
     const settingErrorIsFailureStorage = localStorage.getItem('settingErrorIsFailure');
-    const settingErrorIsFailur = false;
     if (settingErrorIsFailureStorage && settingErrorIsFailureStorage === 'true') {
       document.getElementById('settingErrorIsFailure').checked = true;
     }
