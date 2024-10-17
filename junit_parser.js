@@ -204,11 +204,13 @@
       + '</div>';
   }
 
-  function refresh(event) {
+  function refresh(e) {
     const text = document.querySelector('textarea.xml').value;
     localStorage.setItem('xml', text);
-    localStorage.setItem('settingErrorIsFailure',
-      `${document.getElementById('settingErrorIsFailure').checked}`);
+
+    if (e && e.target.className === "setting") {
+      localStorage.setItem(e.target.id, e.target.checked);
+    }
     parseText(text);
   }
 
@@ -417,14 +419,31 @@
     plotSvg(resultAsJson.testsuites);
   }
 
+  function strToBool(s) {
+    if (s === 'false') {
+      return false;
+    }
+    if (s !== 'true') {
+      console.log('invalid bool string', s);
+    }
+    return true;
+  }
+
   function init() {
     document.querySelector('textarea.xml').addEventListener('change', refresh);
-    document.querySelector('#settingErrorIsFailure').addEventListener('change', refresh);
     document.querySelector('#file').addEventListener('change', processFile);
-    const settingErrorIsFailureStorage = localStorage.getItem('settingErrorIsFailure');
-    if (settingErrorIsFailureStorage && settingErrorIsFailureStorage === 'true') {
-      document.getElementById('settingErrorIsFailure').checked = true;
-    }
+    document.querySelectorAll('.setting').forEach(function(s) {
+      s.addEventListener('change', refresh);
+      // restore settings from storage
+      const ls = localStorage.getItem(s.id)
+      if (ls === null) {
+        return;
+      }
+      const bval = strToBool(ls);
+      if (bval != s.checked) {
+        s.checked = bval;
+      }
+    });
     const lsXml = localStorage.getItem('xml');
     if (lsXml) {
       document.querySelector('textarea.xml').value = lsXml;
